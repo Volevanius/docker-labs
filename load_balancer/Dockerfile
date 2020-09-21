@@ -1,0 +1,13 @@
+FROM volevanya/nginx:latest
+
+RUN apt-get update && apt-get install gettext-base
+
+ENV PROXY_PROTOCOL=http PROXY_UPSTREAM=webapp:9292
+
+COPY proxy.conf /etc/nginx/sites-available/default.template
+COPY start.sh /
+CMD ["chmod +x /script.sh"]
+
+EXPOSE 80
+
+CMD ["/start.sh"]
